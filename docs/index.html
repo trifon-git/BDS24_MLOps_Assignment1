@@ -5,88 +5,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Penguin Species Classifier</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/framer-motion@latest"></script>
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #262323;
-            color: #fefefe;
+            background: linear-gradient(135deg, #262323, #77868b);
+            font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            color: #fefefe;
+            overflow: hidden;
         }
 
         h1 {
             font-size: 6.5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            color: #a24124;
-            text-shadow: 0 0 10px #e37e44, 0 0 20px #e37e44;
             text-align: center;
+            color: #e37e44;
             animation: glow 2s infinite alternate;
+            margin-top: 20px;
         }
 
         h2 {
             font-size: 5rem;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            color: #e37e44;
-            text-shadow: 0 0 10px #a24124;
             text-align: center;
+            color: #a24124;
+            margin-top: 20px;
         }
 
-        pre {
-            background: #53585a;
-            padding: 12px;
-            border-radius: 10px;
-            color: #dae4e5;
-            white-space: pre-wrap;
-            font-size: 1.75rem;
-            transition: transform 0.3s, background-color 0.3s;
-            text-align: center;
-            animation: bounceIn 1s;
-        }
-
-        pre:hover {
-            transform: scale(1.05);
-            background-color: #77868b;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #adbcbf, #77868b);
+        #container {
+            background: #dae4e5;
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            margin: 40px auto;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-            animation: fadeIn 1s ease-out;
-            transition: transform 0.3s;
-            border: 3px solid #a24124;
+            animation: slideIn 1s ease;
         }
 
-        .container:hover {
-            transform: scale(1.02);
+        .info-box {
+            background: #adbcbf;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #a24124;
+            margin: 10px;
+            flex-basis: 45%;
+            animation: bounceIn 1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        @keyframes fadeIn {
-            from {
+        .info-box p {
+            font-size: 1.5rem;
+            margin: 0;
+            text-align: center;
+        }
+
+        .info-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        #prediction {
+            background: #53585a;
+            color: #fefefe;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: glowText 2s infinite alternate;
+        }
+
+        @keyframes slideIn {
+            0% {
                 opacity: 0;
-                transform: translateY(-20px);
+                transform: translateY(-50px);
             }
 
-            to {
+            100% {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
         @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #e37e44, 0 0 20px #a24124;
+            }
+
+            to {
+                text-shadow: 0 0 20px #e37e44, 0 0 40px #a24124;
+            }
+        }
+
+        @keyframes glowText {
             0% {
-                text-shadow: 0 0 5px #e37e44, 0 0 10px #a24124;
+                text-shadow: 0 0 10px #fefefe, 0 0 20px #adbcbf;
             }
 
             100% {
-                text-shadow: 0 0 20px #e37e44, 0 0 30px #a24124;
+                text-shadow: 0 0 20px #fefefe, 0 0 40px #adbcbf;
             }
         }
 
@@ -95,54 +112,28 @@
                 transform: scale(0.8);
             }
 
+            60% {
+                transform: scale(1.05);
+            }
+
             100% {
                 transform: scale(1);
             }
-        }
-
-        .info-box {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            margin-top: 1.5rem;
-        }
-
-        .measurement-box {
-            background-color: #77868b;
-            border-radius: 8px;
-            padding: 20px;
-            transition: background-color 0.3s, transform 0.3s;
-            text-align: center;
-            border: 2px solid #a24124;
-            font-size: 1.5rem;
-            animation: bounceIn 1s;
-        }
-
-        .measurement-box:hover {
-            background-color: #adbcbf;
-            transform: scale(1.05);
-        }
-
-        .description {
-            margin-bottom: 2rem;
-            text-align: center;
-            font-size: 2rem;
-            color: #dae4e5;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>🐧 Welcome to The Great Penguin Predictor! 🌟</h1>
-        <p class="description">Ever wondered which fabulous penguin species you're gazing at? Well, you've landed at the
-            right iceberg! Dive into the magic of AI and let the mighty Penguin Predictor reveal the truth! ✨</p>
+    <h1>Welcome to The Great Penguin Predictor! 🐧</h1>
+    <div id="container">
+        <h2>🧐 Ever wondered what fabulous penguin species you're gazing at?</h2>
+        <p>Well, you've landed at the right iceberg! Dive into the magic of AI and let the mighty Penguin Predictor
+            reveal the truth! ✨</p>
 
-        <h2>🔮 Prediction Unveiled!</h2>
-        <pre id="prediction"></pre>
+        <div id="prediction">Loading prediction...</div>
 
         <h2>📊 Penguin Stats Galore</h2>
-        <div id="penguinInfo" class="info-box"></div>
+        <div class="info-grid" id="penguinInfo"></div>
     </div>
 
     <script>
@@ -153,15 +144,15 @@
                 document.getElementById("prediction").textContent = `✨ Species Detected: ${penguinData.species}! 🐧`;
 
                 document.getElementById("penguinInfo").innerHTML = `
-                    <div class="measurement-box">🐧 Species: ${penguinData.species}</div>
-                    <div class="measurement-box">📏 Bill Length (mm): ${penguinData.bill_length_mm.toFixed(2)}</div>
-                    <div class="measurement-box">📐 Bill Depth (mm): ${penguinData.bill_depth_mm.toFixed(2)}</div>
-                    <div class="measurement-box">🦵 Flipper Length (mm): ${penguinData.flipper_length_mm.toFixed(2)}</div>
-                    <div class="measurement-box">⚖️ Body Mass (g): ${penguinData.body_mass_g.toFixed(2)}</div>
-                    <div class="measurement-box">🕒 Date and Time: ${new Date(penguinData.datetime).toLocaleString()}</div>
+                    <div class="info-box"><p>🐧 Species: ${penguinData.species}</p></div>
+                    <div class="info-box"><p>📏 Bill Length (mm): ${penguinData.bill_length_mm.toFixed(2)}</p></div>
+                    <div class="info-box"><p>📐 Bill Depth (mm): ${penguinData.bill_depth_mm.toFixed(2)}</p></div>
+                    <div class="info-box"><p>💪 Flipper Length (mm): ${penguinData.flipper_length_mm.toFixed(2)}</p></div>
+                    <div class="info-box"><p>⚖️ Body Mass (g): ${penguinData.body_mass_g.toFixed(2)}</p></div>
+                    <div class="info-box"><p>⏰ Date and Time: ${new Date(penguinData.datetime).toLocaleString()}</p></div>
                 `;
             } else {
-                document.getElementById("penguinInfo").textContent = "🐧 Penguin information not found. Maybe it's chilling elsewhere...";
+                document.getElementById("prediction").textContent = "Prediction not found.";
             }
         }
 
