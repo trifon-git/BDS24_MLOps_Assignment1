@@ -8,6 +8,7 @@ body {
 }
 
 /* Parallax Background Layers */
+/* Parallax Background Layers */
 .parallax {
     position: fixed;
     top: 0;
@@ -21,20 +22,21 @@ body {
 }
 
 #parallax-layer1 {
-    background-image: url('https://www.transparenttextures.com/patterns/camo.png');
-    opacity: 0.3;
+    background-image: url('images/6656523.jpg');
+    opacity: 0.25;
 }
 
 #parallax-layer2 {
-    background-image: url('https://www.transparenttextures.com/patterns/hexellence.png');
-    opacity: 0.1;
+    background-image: url('images/6656523.jpg');
+    opacity: 0.12;
 }
 
-/* Style for moving the layers */
+/* Moving Layers Styling */
 body {
     perspective: 1px;
     overflow-x: hidden;
 }
+
 
 h1 {
     font-size: 5vw;
