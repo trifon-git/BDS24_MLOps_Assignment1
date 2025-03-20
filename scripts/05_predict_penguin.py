@@ -153,7 +153,7 @@ with open(os.path.join(current_dir, '..', 'prediction.txt'), 'w') as f:
     f.write(f"Predicted species: {predictions[0]}")
 
 # -------- Save to JSON File for GitHub Pages --------
-json_file_path = os.path.join(current_dir, '..', 'latest_penguin.json')
+json_file_path = os.path.join(current_dir, '..','docs','latest_penguin.json')
 
 # Prepare data to save
 penguin_info = {

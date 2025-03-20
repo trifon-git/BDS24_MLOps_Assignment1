@@ -1,0 +1,60 @@
+import React from 'react';
+import { Card } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { motion } from 'framer-motion';
+import { PieChart, Pie, Cell, Tooltip } from 'recharts';
+
+const FancyPenguinClassifier = ({ penguinData }) => {
+const data = [
+{ name: 'Adelie', value: penguinData.Adélie },
+{ name: 'Chinstrap', value: penguinData.Chinstrap },
+{ name: 'Gentoo', value: penguinData.Gentoo }
+];
+
+const COLORS = ['#A94428', '#E67E22', '#C5D3D3', '#778899'];
+const backgroundColor = '#E7ECEF';
+const cardColor = '#DDE5E5';
+
+return (
+<div className="min-h-screen flex items-center justify-center bg-[backgroundColor] p-4">
+    <div className="max-w-3xl w-full p-6 bg-white shadow-xl rounded-2xl space-y-6">
+        <motion.h1 className="text-4xl font-bold mb-4 text-[#A94428] flex items-center space-x-2">
+            🐧 New Penguin Spotted!
+        </motion.h1>
+        <div className="flex justify-between items-center">
+            <p className="text-lg font-medium">Last Spotted:</p>
+            <p className="text-sm text-gray-500">{penguinData.datetime}</p>
+        </div>
+        <div className="grid grid-cols-2 gap-4 mt-4">
+            <Card className="bg-[cardColor] p-4">
+                <p><strong>Bill Length:</strong> {penguinData.bill_length_mm.toFixed(2)} mm</p>
+            </Card>
+            <Card className="bg-[cardColor] p-4">
+                <p><strong>Bill Depth:</strong> {penguinData.bill_depth_mm.toFixed(2)} mm</p>
+            </Card>
+            <Card className="bg-[cardColor] p-4">
+                <p><strong>Flipper Length:</strong> {penguinData.flipper_length_mm.toFixed(2)} mm</p>
+            </Card>
+            <Card className="bg-[cardColor] p-4">
+                <p><strong>Body Mass:</strong> {penguinData.body_mass_g.toFixed(2)} g</p>
+            </Card>
+        </div>
+
+        <div className="mt-8">
+            <h2 className="text-2xl font-bold text-[#E67E22]">Prediction Probabilities:</h2>
+            <PieChart width={400} height={300}>
+                <Pie data={data} cx={200} cy={150} innerRadius={60} outerRadius={80} fill="#8884d8" dataKey="value"
+                    label>
+                    {data.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                </Pie>
+                <Tooltip />
+            </PieChart>
+        </div>
+    </div>
+</div>
+);
+};
+
+export default FancyPenguinClassifier;
