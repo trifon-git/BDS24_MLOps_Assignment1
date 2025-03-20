@@ -10,33 +10,39 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #1A202C;
-            color: white;
+            background-color: #262323;
+            color: #fefefe;
             margin: 0;
             padding: 20px;
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.75rem;
             font-weight: bold;
             margin-bottom: 1rem;
-            color: #68D391;
+            color: #a24124;
         }
 
         h2 {
             font-size: 1.75rem;
             margin-top: 2rem;
             margin-bottom: 1rem;
-            color: #81E6D9;
+            color: #e37e44;
         }
 
         pre {
-            background: #2D3748;
-            padding: 10px;
-            border-radius: 8px;
-            color: #E2E8F0;
+            background: #53585a;
+            padding: 12px;
+            border-radius: 10px;
+            color: #dae4e5;
             white-space: pre-wrap;
             font-size: 1rem;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        pre:hover {
+            transform: scale(1.02);
+            background-color: #77868b;
         }
 
         .container {
@@ -44,9 +50,14 @@
             margin: auto;
             padding: 20px;
             border-radius: 12px;
-            background: #2D3748;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #adbcbf, #77868b);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
             animation: fadeIn 1s ease-out;
+            transition: transform 0.3s;
+        }
+
+        .container:hover {
+            transform: scale(1.01);
         }
 
         @keyframes fadeIn {
@@ -60,6 +71,14 @@
                 transform: translateY(0);
             }
         }
+
+        .info-box {
+            padding: 10px;
+            margin-top: 1rem;
+            background-color: #53585a;
+            border-radius: 10px;
+            animation: fadeIn 1s ease-out;
+        }
     </style>
 </head>
 
@@ -70,7 +89,7 @@
         <pre id="prediction"></pre>
 
         <h2>Penguin Details</h2>
-        <div id="penguinInfo"></div>
+        <div id="penguinInfo" class="info-box"></div>
     </div>
 
     <script>
