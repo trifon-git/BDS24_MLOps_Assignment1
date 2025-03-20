@@ -22,6 +22,7 @@
             margin-bottom: 1rem;
             color: #a24124;
             text-shadow: 0 0 5px #e37e44;
+            text-align: center;
         }
 
         h2 {
@@ -30,6 +31,7 @@
             margin-bottom: 1rem;
             color: #e37e44;
             text-shadow: 0 0 5px #a24124;
+            text-align: center;
         }
 
         pre {
@@ -40,6 +42,7 @@
             white-space: pre-wrap;
             font-size: 1.5rem;
             transition: transform 0.3s, background-color 0.3s;
+            text-align: center;
         }
 
         pre:hover {
@@ -48,7 +51,7 @@
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: auto;
             padding: 20px;
             border-radius: 12px;
@@ -56,10 +59,11 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
             animation: fadeIn 1s ease-out;
             transition: transform 0.3s;
+            border: 3px solid #a24124;
         }
 
         .container:hover {
-            transform: scale(1.03);
+            transform: scale(1.01);
         }
 
         @keyframes fadeIn {
@@ -77,34 +81,44 @@
         .info-box {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 1rem;
+            gap: 15px;
+            margin-top: 1.5rem;
         }
 
         .measurement-box {
             background-color: #77868b;
             border-radius: 8px;
             padding: 20px;
-            margin-top: 10px;
             transition: background-color 0.3s, transform 0.3s;
             text-align: center;
             border: 2px solid #a24124;
+            font-size: 1.25rem;
         }
 
         .measurement-box:hover {
             background-color: #adbcbf;
-            transform: scale(1.03);
+            transform: scale(1.05);
+        }
+
+        .description {
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.25rem;
+            color: #dae4e5;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>🐧 Latest Penguin Species Prediction</h1>
-        <p class="text-2xl mb-2">🔮 Prediction:</p>
+        <h1>🐧 Welcome to The Great Penguin Predictor! 🌟</h1>
+        <p class="description">Ever wondered which fabulous penguin species you're gazing at? Well, you've landed at the
+            right iceberg! Dive into the magic of AI and let the mighty Penguin Predictor reveal the truth! ✨</p>
+
+        <h2>🔮 Prediction Unveiled!</h2>
         <pre id="prediction"></pre>
 
-        <h2>📊 Penguin Details</h2>
+        <h2>📊 Penguin Stats Galore</h2>
         <div id="penguinInfo" class="info-box"></div>
     </div>
 
@@ -113,18 +127,18 @@
             const response = await fetch("latest_penguin.json");
             if (response.ok) {
                 const penguinData = await response.json();
-                document.getElementById("prediction").textContent = penguinData.species;
+                document.getElementById("prediction").textContent = `✨ Species: ${penguinData.species} ✨`;
 
                 document.getElementById("penguinInfo").innerHTML = `
-                    <div class="measurement-box">🐧 <strong>Species:</strong> ${penguinData.species}</div>
-                    <div class="measurement-box">📏 <strong>Bill Length (mm):</strong> ${penguinData.bill_length_mm.toFixed(2)}</div>
-                    <div class="measurement-box">📐 <strong>Bill Depth (mm):</strong> ${penguinData.bill_depth_mm.toFixed(2)}</div>
-                    <div class="measurement-box">🦵 <strong>Flipper Length (mm):</strong> ${penguinData.flipper_length_mm.toFixed(2)}</div>
-                    <div class="measurement-box">⚖️ <strong>Body Mass (g):</strong> ${penguinData.body_mass_g.toFixed(2)}</div>
-                    <div class="measurement-box">🕒 <strong>Date and Time:</strong> ${new Date(penguinData.datetime).toLocaleString()}</div>
+                    <div class="measurement-box">🐧 Species: ${penguinData.species}</div>
+                    <div class="measurement-box">📏 Bill Length (mm): ${penguinData.bill_length_mm.toFixed(2)}</div>
+                    <div class="measurement-box">📐 Bill Depth (mm): ${penguinData.bill_depth_mm.toFixed(2)}</div>
+                    <div class="measurement-box">🦵 Flipper Length (mm): ${penguinData.flipper_length_mm.toFixed(2)}</div>
+                    <div class="measurement-box">⚖️ Body Mass (g): ${penguinData.body_mass_g.toFixed(2)}</div>
+                    <div class="measurement-box">🕒 Date and Time: ${new Date(penguinData.datetime).toLocaleString()}</div>
                 `;
             } else {
-                document.getElementById("penguinInfo").textContent = "🐧 Penguin information not found.";
+                document.getElementById("penguinInfo").textContent = "🐧 Penguin information not found. Maybe it's chilling elsewhere...";
             }
         }
 
