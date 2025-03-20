@@ -93,3 +93,14 @@ function createPenguinRain() {
 function triggerEasterEgg() {
     alert("🐧 COMMANDO PENGUIN ATTACK ACTIVATED! 💥");
 }
+
+document.addEventListener("mousemove", (e) => {
+    const x = e.clientX / window.innerWidth;
+    const y = e.clientY / window.innerHeight;
+
+    const layer1 = document.getElementById("parallax-layer1");
+    const layer2 = document.getElementById("parallax-layer2");
+
+    layer1.style.transform = `translate(${x * 30}px, ${y * 30}px)`;
+    layer2.style.transform = `translate(${x * 60}px, ${y * 60}px)`;
+});
