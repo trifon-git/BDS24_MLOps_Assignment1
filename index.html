@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penguin Species Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        h1 {
+            color: #2E8B57;
+        }
+
+        pre {
+            background: #F0F0F0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Latest Penguin Species Prediction</h1>
+    <p>Below is the latest prediction made by the model:</p>
+    <pre id="prediction"></pre>
+
+    <script>
+        async function fetchPrediction() {
+            const response = await fetch("prediction.txt");
+            if (response.ok) {
+                const text = await response.text();
+                document.getElementById("prediction").textContent = text;
+            } else {
+                document.getElementById("prediction").textContent = "Prediction file not found.";
+            }
+        }
+
+        fetchPrediction();
+    </script>
+</body>
+
+</html>
