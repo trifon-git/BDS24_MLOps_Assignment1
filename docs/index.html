@@ -1,60 +1,127 @@
-import React from 'react';
-import { Card } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { motion } from 'framer-motion';
-import { PieChart, Pie, Cell, Tooltip } from 'recharts';
-
-const FancyPenguinClassifier = ({ penguinData }) => {
-const data = [
-{ name: 'Adelie', value: penguinData.Adélie },
-{ name: 'Chinstrap', value: penguinData.Chinstrap },
-{ name: 'Gentoo', value: penguinData.Gentoo }
-];
-
-const COLORS = ['#A94428', '#E67E22', '#C5D3D3', '#778899'];
-const backgroundColor = '#E7ECEF';
-const cardColor = '#DDE5E5';
-
-return (
-<div className="min-h-screen flex items-center justify-center bg-[backgroundColor] p-4">
-    <div className="max-w-3xl w-full p-6 bg-white shadow-xl rounded-2xl space-y-6">
-        <motion.h1 className="text-4xl font-bold mb-4 text-[#A94428] flex items-center space-x-2">
-            🐧 New Penguin Spotted!
-        </motion.h1>
-        <div className="flex justify-between items-center">
-            <p className="text-lg font-medium">Last Spotted:</p>
-            <p className="text-sm text-gray-500">{penguinData.datetime}</p>
-        </div>
-        <div className="grid grid-cols-2 gap-4 mt-4">
-            <Card className="bg-[cardColor] p-4">
-                <p><strong>Bill Length:</strong> {penguinData.bill_length_mm.toFixed(2)} mm</p>
-            </Card>
-            <Card className="bg-[cardColor] p-4">
-                <p><strong>Bill Depth:</strong> {penguinData.bill_depth_mm.toFixed(2)} mm</p>
-            </Card>
-            <Card className="bg-[cardColor] p-4">
-                <p><strong>Flipper Length:</strong> {penguinData.flipper_length_mm.toFixed(2)} mm</p>
-            </Card>
-            <Card className="bg-[cardColor] p-4">
-                <p><strong>Body Mass:</strong> {penguinData.body_mass_g.toFixed(2)} g</p>
-            </Card>
-        </div>
-
-        <div className="mt-8">
-            <h2 className="text-2xl font-bold text-[#E67E22]">Prediction Probabilities:</h2>
-            <PieChart width={400} height={300}>
-                <Pie data={data} cx={200} cy={150} innerRadius={60} outerRadius={80} fill="#8884d8" dataKey="value"
-                    label>
-                    {data.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                </Pie>
-                <Tooltip />
-            </PieChart>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penguins of Madagascar Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #E1E8EB;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #005D6E;
+            text-align: center;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 img {
+            margin-right: 10px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+        .penguin-details div {
+            margin-bottom: 5px;
+            background: #F0F4F8;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .prediction-bar {
+            margin: 10px 0;
+            background: #F0F4F8;
+            border-radius: 8px;
+            padding: 10px;
+            position: relative;
+            height: 30px;
+        }
+        .progress {
+            background-color: #F77F00;
+            height: 100%;
+            border-radius: 8px;
+            transition: width 0.5s;
+        }
+        .date-time {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #F0F4F8;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><img src="https://cdn-icons-png.flaticon.com/512/1263/1263419.png" alt="Penguin Icon" width="30"> Penguins of Madagascar Classifier</h1>
+        
+        <div id="app"></div>
     </div>
-</div>
-);
-};
 
-export default FancyPenguinClassifier;
+    <script>
+        async function fetchPenguinData() {
+            try {
+                const response = await fetch('latest_penguin.json');
+                const data = await response.json();
+
+                // Separate Date and Time
+                const [date, time] = data.datetime.split('T');
+                const formattedTime = time.split('+')[0]; // Remove timezone info
+                
+                // Display data on the page
+                const app = document.getElementById('app');
+                
+                app.innerHTML = `
+                    <div class="section">
+                        <div class="section-title">Latest Penguin Spotted:</div>
+                        <div class="date-time">
+                            <div><strong>Date:</strong> ${date}</div>
+                            <div><strong>Time:</strong> ${formattedTime}</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Penguin Measurements:</div>
+                        <div class="penguin-details">
+                            <div><strong>Bill Length (mm):</strong> ${data.bill_length_mm.toFixed(2)}</div>
+                            <div><strong>Bill Depth (mm):</strong> ${data.bill_depth_mm.toFixed(2)}</div>
+                            <div><strong>Flipper Length (mm):</strong> ${data.flipper_length_mm.toFixed(2)}</div>
+                            <div><strong>Body Mass (g):</strong> ${data.body_mass_g.toFixed(0)}</div>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Predicted Species:</div>
+                        <div class="prediction-bar">
+                            <div class="progress" style="width: 98%;">${data.species} (98%)</div>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        fetchPenguinData();
+    </script>
+</body>
+</html>
