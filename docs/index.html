@@ -17,20 +17,21 @@
         }
 
         h1 {
-            font-size: 5rem;
+            font-size: 6rem;
             font-weight: bold;
             margin-bottom: 1rem;
             color: #a24124;
-            text-shadow: 0 0 5px #e37e44;
+            text-shadow: 0 0 10px #e37e44, 0 0 20px #e37e44;
             text-align: center;
+            animation: glow 2s infinite alternate;
         }
 
         h2 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             margin-top: 2rem;
             margin-bottom: 1rem;
             color: #e37e44;
-            text-shadow: 0 0 5px #a24124;
+            text-shadow: 0 0 10px #a24124;
             text-align: center;
         }
 
@@ -40,13 +41,14 @@
             border-radius: 10px;
             color: #dae4e5;
             white-space: pre-wrap;
-            font-size: 1.5rem;
+            font-size: 2rem;
             transition: transform 0.3s, background-color 0.3s;
             text-align: center;
+            animation: bounceIn 1s;
         }
 
         pre:hover {
-            transform: scale(1.02);
+            transform: scale(1.05);
             background-color: #77868b;
         }
 
@@ -63,7 +65,7 @@
         }
 
         .container:hover {
-            transform: scale(1.01);
+            transform: scale(1.02);
         }
 
         @keyframes fadeIn {
@@ -75,6 +77,26 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px #e37e44, 0 0 10px #a24124;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #e37e44, 0 0 30px #a24124;
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.8);
+            }
+
+            100% {
+                transform: scale(1);
             }
         }
 
@@ -92,7 +114,8 @@
             transition: background-color 0.3s, transform 0.3s;
             text-align: center;
             border: 2px solid #a24124;
-            font-size: 1.25rem;
+            font-size: 1.8rem;
+            animation: bounceIn 1s;
         }
 
         .measurement-box:hover {
@@ -103,7 +126,7 @@
         .description {
             margin-bottom: 2rem;
             text-align: center;
-            font-size: 1.25rem;
+            font-size: 1.8rem;
             color: #dae4e5;
         }
     </style>
@@ -127,7 +150,7 @@
             const response = await fetch("latest_penguin.json");
             if (response.ok) {
                 const penguinData = await response.json();
-                document.getElementById("prediction").textContent = `✨ Species: ${penguinData.species} ✨`;
+                document.getElementById("prediction").textContent = `✨ Species Detected: ${penguinData.species}! 🐧`;
 
                 document.getElementById("penguinInfo").innerHTML = `
                     <div class="measurement-box">🐧 Species: ${penguinData.species}</div>
