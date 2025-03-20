@@ -6,6 +6,7 @@ import re
 import os
 import sqlite3
 import datetime
+import pytz
 
 # Load the trained model from parent directory
 current_dir = os.path.dirname(os.path.abspath(__file__))  # Get the current directory of this script
@@ -144,12 +145,21 @@ else:
     print(f"Failed to fetch data from the API. Status Code: {response.status_code}")
 
 
+
+
 # -------- Save to JSON Files for GitHub Pages --------
 latest_json_path = os.path.join(current_dir, '..', 'public', 'latest_penguin.json')
 all_predictions_json_path = os.path.join(current_dir, '..', 'public', 'predictions.json')
 
-# Get the exact time of prediction
-prediction_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+# Get the exact time of prediction in UTC format
+utc_now = datetime.datetime.now(pytz.UTC)
+prediction_time = utc_now.strftime("%Y-%m-%dT%H:%M:%S%z")
+
+# Convert the original datetime to the same format if it's not already
+if isinstance(penguins_df['datetime'][0], str):
+    api_datetime = penguins_df['datetime'][0]
+else:
+    api_datetime = utc_now.strftime("%Y-%m-%dT%H:%M:%S%z")
 
 # Prepare data to save
 penguin_info = {
@@ -159,8 +169,8 @@ penguin_info = {
     "bill_depth_mm": round(penguins_df['bill_depth_mm'][0], 2),
     "flipper_length_mm": round(penguins_df['flipper_length_mm'][0], 2),
     "body_mass_g": round(penguins_df['body_mass_g'][0], 2),
-    "datetime": penguins_df['datetime'][0],  # Original date from API
-    "prediction_time": prediction_time       # Time when prediction was made
+    "datetime": api_datetime,             # API-provided datetime formatted correctly
+    "prediction_time": prediction_time    # Prediction time formatted correctly
 }
 
 # Save the latest penguin prediction to 'latest_penguin.json'

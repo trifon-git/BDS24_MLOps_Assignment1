@@ -2,6 +2,9 @@ async function fetchPrediction() {
     const response = await fetch("latest_penguin.json");
     if (response.ok) {
         const penguinData = await response.json();
+        const predictionTime = new Date(penguinData.prediction_time).toLocaleString();
+        const discoveryTime = new Date(penguinData.datetime).toLocaleString();
+
         document.getElementById("prediction").textContent =
             `🔥 Mission Success! Penguin Species Identified: ${penguinData.species} 🐧`;
 
@@ -22,8 +25,8 @@ async function fetchPrediction() {
                 <td>${penguinData.bill_depth_mm.toFixed(2)}</td>
                 <td>${penguinData.flipper_length_mm.toFixed(2)}</td>
                 <td>${penguinData.body_mass_g.toFixed(2)}</td>
-                <td>${new Date(penguinData.datetime).toLocaleString()}</td>
-                <td>${penguinData.prediction_time}</td>
+                <td>${discoveryTime}</td>
+                <td>${predictionTime}</td>
             </tr>
         `;
         document.getElementById("data-table").appendChild(dataTable);
@@ -60,7 +63,7 @@ async function fetchPreviousPredictions() {
                     <td>${prediction.flipper_length_mm.toFixed(2)}</td>
                     <td>${prediction.body_mass_g.toFixed(2)}</td>
                     <td>${new Date(prediction.datetime).toLocaleString()}</td>
-                    <td>${prediction.prediction_time}</td>
+                    <td>${new Date(prediction.prediction_time).toLocaleString()}</td>
                 </tr>
             `;
         });
