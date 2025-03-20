@@ -1,8 +1,9 @@
 {
     "species": "Adelie",
-    "bill_length_mm": 37.49674160932227,
-    "bill_depth_mm": 19.552948464630344,
-    "flipper_length_mm": 194.13346720834585,
-    "body_mass_g": 2908.216536400228,
+    "confidence": 100.0,
+    "bill_length_mm": 37.5,
+    "bill_depth_mm": 19.55,
+    "flipper_length_mm": 194.13,
+    "body_mass_g": 2908.22,
     "datetime": "2025-03-20T07:59:00+00:00"
 }

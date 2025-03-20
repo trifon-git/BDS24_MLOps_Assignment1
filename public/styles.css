@@ -111,3 +111,27 @@ td:hover {
         box-shadow: 0 0 20px #ffd700, 0 0 40px #ffd700;
     }
 }
+
+#previous-predictions table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#previous-predictions th,
+#previous-predictions td {
+    padding: 10px;
+    text-align: center;
+    border: 2px solid #ffd700;
+    background-color: #444;
+    color: white;
+}
+
+#previous-predictions th {
+    background-color: #ffd700;
+    color: #333;
+}
+
+#previous-predictions td:hover {
+    background-color: #555;
+}

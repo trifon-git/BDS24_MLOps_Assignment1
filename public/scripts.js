@@ -29,7 +29,34 @@ async function fetchPrediction() {
     }
 }
 
+async function fetchPreviousPredictions() {
+    const response = await fetch("predictions.json");
+    if (response.ok) {
+        const predictionsData = await response.json();
+        const sortedPredictions = predictionsData.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
+
+        let previousPredictionsTable = '<table><tr><th>Species</th><th>Bill Length (mm)</th><th>Bill Depth (mm)</th><th>Flipper Length (mm)</th><th>Body Mass (g)</th><th>Discovery Time</th></tr>';
+
+        sortedPredictions.forEach(prediction => {
+            previousPredictionsTable += `
+                <tr>
+                    <td>${prediction.species}</td>
+                    <td>${prediction.bill_length_mm.toFixed(2)}</td>
+                    <td>${prediction.bill_depth_mm.toFixed(2)}</td>
+                    <td>${prediction.flipper_length_mm.toFixed(2)}</td>
+                    <td>${prediction.body_mass_g.toFixed(2)}</td>
+                    <td>${new Date(prediction.datetime).toLocaleString()}</td>
+                </tr>
+            `;
+        });
+
+        previousPredictionsTable += '</table>';
+        document.getElementById("previous-predictions").innerHTML = previousPredictionsTable;
+    }
+}
+
 fetchPrediction();
+fetchPreviousPredictions();
 
 function createPenguinRain() {
     for (let i = 0; i < 1000; i++) {

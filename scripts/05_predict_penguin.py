@@ -74,28 +74,21 @@ response = requests.get(url)
 
 if response.status_code == 200:
     try:
-        # Load the response as JSON
         penguin_data = response.json()
         
-        # If the response is a single dictionary, convert it to a list
         if isinstance(penguin_data, dict):
             penguin_data = [penguin_data]
         
-        # Convert the data to a DataFrame
         penguins_df = pd.DataFrame(penguin_data)
         
-        # Assign proper column names if they aren't present
         expected_columns = ['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g', 'datetime']
         
-        # Reorder or fill missing columns with None
         for col in expected_columns:
             if col not in penguins_df.columns:
                 penguins_df[col] = None
         
-        # Reorder columns to match expected structure
         penguins_df = penguins_df[expected_columns]
         
-        # -------- Check If Penguin Already Processed --------
         query = f"""
         SELECT * FROM PENGUINS 
         WHERE bill_length_mm = ? AND bill_depth_mm = ? 
@@ -109,9 +102,8 @@ if response.status_code == 200:
         if cursor.fetchone():
             print("This Penguin is already processed.")
             conn.close()
-            exit()  # Exit the script as this penguin is already processed.
+            exit()
 
-        # -------- Feature Engineering --------
         if 'bill_length_mm' in penguins_df.columns and 'bill_depth_mm' in penguins_df.columns:
             penguins_df['bill_ratio'] = penguins_df['bill_length_mm'] / penguins_df['bill_depth_mm']
             penguins_df['bill_area'] = penguins_df['bill_length_mm'] * penguins_df['bill_depth_mm']
@@ -121,21 +113,25 @@ if response.status_code == 200:
             penguins_df['size_index'] = penguins_df['flipper_length_mm'] * penguins_df['body_mass_g']
             penguins_df['mass_flipper_diff'] = penguins_df['body_mass_g'] - penguins_df['flipper_length_mm']
         
-        # -------- Classification Process --------
-        # Filter the DataFrame to include only relevant features for prediction
         X_new = penguins_df[relevant_features]
 
         # Make predictions using the trained model
         predictions = model.predict(X_new)
+        # Get probabilities for all species
+        prediction_probabilities = model.predict_proba(X_new)[0]
+
+        # Find the index of the predicted class
+        predicted_index = model.classes_.tolist().index(predictions[0])
+
+        # Get the probability of the predicted class
+        predicted_probability = prediction_probabilities[predicted_index] * 100  # Convert to percentage
+
         
-        # Overwrite the 'species' column with the predicted species
         penguins_df['species'] = predictions
         
-        # Display the classified DataFrame
         print("\nClassified DataFrame:")
         print(penguins_df[['species']])
         
-        # -------- Save to Database --------
         penguins_df.to_sql('PENGUINS', conn, if_exists='append', index=False)
         
         conn.close()
@@ -146,27 +142,40 @@ if response.status_code == 200:
 else:
     print(f"Failed to fetch data from the API. Status Code: {response.status_code}")
 
-import json
-
-# Save prediction to prediction.txt for GitHub Pages
-with open(os.path.join(current_dir, '..', 'prediction.txt'), 'w') as f:
-    f.write(f"Predicted species: {predictions[0]}")
-
-# -------- Save to JSON File for GitHub Pages --------
-json_file_path = os.path.join(current_dir, '..','docs','latest_penguin.json')
+# -------- Save to JSON Files for GitHub Pages --------
+latest_json_path = os.path.join(current_dir, '..', 'public', 'latest_penguin.json')
+all_predictions_json_path = os.path.join(current_dir, '..', 'public', 'predictions.json')
 
 # Prepare data to save
 penguin_info = {
     "species": predictions[0],
-    "bill_length_mm": penguins_df['bill_length_mm'][0],
-    "bill_depth_mm": penguins_df['bill_depth_mm'][0],
-    "flipper_length_mm": penguins_df['flipper_length_mm'][0],
-    "body_mass_g": penguins_df['body_mass_g'][0],
+    "confidence": round(predicted_probability, 2),
+    "bill_length_mm": round(penguins_df['bill_length_mm'][0], 2),
+    "bill_depth_mm": round(penguins_df['bill_depth_mm'][0], 2),
+    "flipper_length_mm": round(penguins_df['flipper_length_mm'][0], 2),
+    "body_mass_g": round(penguins_df['body_mass_g'][0], 2),
     "datetime": penguins_df['datetime'][0]
 }
 
-# Save the data to JSON file
-with open(json_file_path, 'w') as json_file:
-    json.dump(penguin_info, json_file, indent=4)
+# Save the latest penguin prediction to 'latest_penguin.json'
+with open(latest_json_path, 'w') as latest_file:
+    json.dump(penguin_info, latest_file, indent=4)
+print(f"\nLatest penguin information saved to 'public/latest_penguin.json'.")
 
-print(f"\nPenguin information saved to 'latest_penguin.json'")
+# Save all predictions to 'predictions.json'
+if os.path.exists(all_predictions_json_path):
+    with open(all_predictions_json_path, 'r') as all_file:
+        try:
+            all_predictions = json.load(all_file)
+        except json.JSONDecodeError:
+            all_predictions = []  # If the file is empty or corrupted, start fresh
+else:
+    all_predictions = []
+
+# Append the new prediction to the list
+all_predictions.append(penguin_info)
+
+# Save the updated list back to the file
+with open(all_predictions_json_path, 'w') as all_file:
+    json.dump(all_predictions, all_file, indent=4)
+print(f"\nPenguin information appended to 'public/predictions.json'.")
