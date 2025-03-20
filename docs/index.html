@@ -17,17 +17,19 @@
         }
 
         h1 {
-            font-size: 2.75rem;
+            font-size: 5rem;
             font-weight: bold;
             margin-bottom: 1rem;
             color: #a24124;
+            text-shadow: 0 0 5px #e37e44;
         }
 
         h2 {
-            font-size: 1.75rem;
+            font-size: 3.5rem;
             margin-top: 2rem;
             margin-bottom: 1rem;
             color: #e37e44;
+            text-shadow: 0 0 5px #a24124;
         }
 
         pre {
@@ -36,7 +38,7 @@
             border-radius: 10px;
             color: #dae4e5;
             white-space: pre-wrap;
-            font-size: 1rem;
+            font-size: 1.5rem;
             transition: transform 0.3s, background-color 0.3s;
         }
 
@@ -57,7 +59,7 @@
         }
 
         .container:hover {
-            transform: scale(1.01);
+            transform: scale(1.03);
         }
 
         @keyframes fadeIn {
@@ -73,19 +75,20 @@
         }
 
         .info-box {
-            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
             margin-top: 1rem;
-            background-color: #53585a;
-            border-radius: 10px;
-            animation: fadeIn 1s ease-out;
         }
 
         .measurement-box {
             background-color: #77868b;
             border-radius: 8px;
-            padding: 10px;
+            padding: 20px;
             margin-top: 10px;
             transition: background-color 0.3s, transform 0.3s;
+            text-align: center;
+            border: 2px solid #a24124;
         }
 
         .measurement-box:hover {
@@ -97,11 +100,11 @@
 
 <body>
     <div class="container">
-        <h1>Latest Penguin Species Prediction</h1>
-        <p class="text-lg mb-2">Prediction:</p>
+        <h1>🐧 Latest Penguin Species Prediction</h1>
+        <p class="text-2xl mb-2">🔮 Prediction:</p>
         <pre id="prediction"></pre>
 
-        <h2>Penguin Details</h2>
+        <h2>📊 Penguin Details</h2>
         <div id="penguinInfo" class="info-box"></div>
     </div>
 
@@ -113,15 +116,15 @@
                 document.getElementById("prediction").textContent = penguinData.species;
 
                 document.getElementById("penguinInfo").innerHTML = `
-                    <div class="measurement-box"><strong>Species:</strong> ${penguinData.species}</div>
-                    <div class="measurement-box"><strong>Bill Length (mm):</strong> ${penguinData.bill_length_mm.toFixed(2)}</div>
-                    <div class="measurement-box"><strong>Bill Depth (mm):</strong> ${penguinData.bill_depth_mm.toFixed(2)}</div>
-                    <div class="measurement-box"><strong>Flipper Length (mm):</strong> ${penguinData.flipper_length_mm.toFixed(2)}</div>
-                    <div class="measurement-box"><strong>Body Mass (g):</strong> ${penguinData.body_mass_g.toFixed(2)}</div>
-                    <div class="measurement-box"><strong>Date and Time:</strong> ${new Date(penguinData.datetime).toLocaleString()}</div>
+                    <div class="measurement-box">🐧 <strong>Species:</strong> ${penguinData.species}</div>
+                    <div class="measurement-box">📏 <strong>Bill Length (mm):</strong> ${penguinData.bill_length_mm.toFixed(2)}</div>
+                    <div class="measurement-box">📐 <strong>Bill Depth (mm):</strong> ${penguinData.bill_depth_mm.toFixed(2)}</div>
+                    <div class="measurement-box">🦵 <strong>Flipper Length (mm):</strong> ${penguinData.flipper_length_mm.toFixed(2)}</div>
+                    <div class="measurement-box">⚖️ <strong>Body Mass (g):</strong> ${penguinData.body_mass_g.toFixed(2)}</div>
+                    <div class="measurement-box">🕒 <strong>Date and Time:</strong> ${new Date(penguinData.datetime).toLocaleString()}</div>
                 `;
             } else {
-                document.getElementById("penguinInfo").textContent = "Penguin information not found.";
+                document.getElementById("penguinInfo").textContent = "🐧 Penguin information not found.";
             }
         }
 
