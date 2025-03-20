@@ -145,3 +145,28 @@ if response.status_code == 200:
         print("Error: Failed to decode JSON from API response.")
 else:
     print(f"Failed to fetch data from the API. Status Code: {response.status_code}")
+
+import json
+
+# Save prediction to prediction.txt for GitHub Pages
+with open(os.path.join(current_dir, '..', 'prediction.txt'), 'w') as f:
+    f.write(f"Predicted species: {predictions[0]}")
+
+# -------- Save to JSON File for GitHub Pages --------
+json_file_path = os.path.join(current_dir, '..', 'latest_penguin.json')
+
+# Prepare data to save
+penguin_info = {
+    "species": predictions[0],
+    "bill_length_mm": penguins_df['bill_length_mm'][0],
+    "bill_depth_mm": penguins_df['bill_depth_mm'][0],
+    "flipper_length_mm": penguins_df['flipper_length_mm'][0],
+    "body_mass_g": penguins_df['body_mass_g'][0],
+    "datetime": penguins_df['datetime'][0]
+}
+
+# Save the data to JSON file
+with open(json_file_path, 'w') as json_file:
+    json.dump(penguin_info, json_file, indent=4)
+
+print(f"\nPenguin information saved to 'latest_penguin.json'")
