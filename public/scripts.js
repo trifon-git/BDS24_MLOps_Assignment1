@@ -2,7 +2,8 @@ async function fetchPrediction() {
     const response = await fetch("latest_penguin.json");
     if (response.ok) {
         const penguinData = await response.json();
-        document.getElementById("prediction").textContent = `🔥 Mission Success! Penguin Species Identified: ${penguinData.species} 🐧`;
+        document.getElementById("prediction").textContent =
+            `🔥 Mission Success! Penguin Species Identified: ${penguinData.species} 🐧`;
 
         const dataTable = document.createElement('table');
         dataTable.innerHTML = `
@@ -13,6 +14,7 @@ async function fetchPrediction() {
                 <th onclick="createPenguinRain()">Flipper Length (mm)</th>
                 <th onclick="createPenguinRain()">Body Mass (g)</th>
                 <th onclick="createPenguinRain()">Discovery Time</th>
+                <th onclick="createPenguinRain()">Prediction Time</th>
             </tr>
             <tr>
                 <td>${penguinData.species}</td>
@@ -21,6 +23,7 @@ async function fetchPrediction() {
                 <td>${penguinData.flipper_length_mm.toFixed(2)}</td>
                 <td>${penguinData.body_mass_g.toFixed(2)}</td>
                 <td>${new Date(penguinData.datetime).toLocaleString()}</td>
+                <td>${penguinData.prediction_time}</td>
             </tr>
         `;
         document.getElementById("data-table").appendChild(dataTable);
@@ -33,9 +36,20 @@ async function fetchPreviousPredictions() {
     const response = await fetch("predictions.json");
     if (response.ok) {
         const predictionsData = await response.json();
-        const sortedPredictions = predictionsData.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
+        const sortedPredictions = predictionsData.sort((a, b) =>
+            new Date(b.prediction_time) - new Date(a.prediction_time)
+        );
 
-        let previousPredictionsTable = '<table><tr><th>Species</th><th>Bill Length (mm)</th><th>Bill Depth (mm)</th><th>Flipper Length (mm)</th><th>Body Mass (g)</th><th>Discovery Time</th></tr>';
+        let previousPredictionsTable = `<table>
+            <tr>
+                <th>Species</th>
+                <th>Bill Length (mm)</th>
+                <th>Bill Depth (mm)</th>
+                <th>Flipper Length (mm)</th>
+                <th>Body Mass (g)</th>
+                <th>Discovery Time</th>
+                <th>Prediction Time</th>
+            </tr>`;
 
         sortedPredictions.forEach(prediction => {
             previousPredictionsTable += `
@@ -46,6 +60,7 @@ async function fetchPreviousPredictions() {
                     <td>${prediction.flipper_length_mm.toFixed(2)}</td>
                     <td>${prediction.body_mass_g.toFixed(2)}</td>
                     <td>${new Date(prediction.datetime).toLocaleString()}</td>
+                    <td>${prediction.prediction_time}</td>
                 </tr>
             `;
         });
