@@ -21,10 +21,10 @@ async function fetchPrediction() {
             </tr>
             <tr>
                 <td>${penguinData.species}</td>
-                <td>${penguinData.bill_length_mm.toFixed(2)}</td>
-                <td>${penguinData.bill_depth_mm.toFixed(2)}</td>
-                <td>${penguinData.flipper_length_mm.toFixed(2)}</td>
-                <td>${penguinData.body_mass_g.toFixed(2)}</td>
+                <td>${penguinData.bill_length_mm.toFixed(2)} mm</td>
+                <td>${penguinData.bill_depth_mm.toFixed(2)} mm</td>
+                <td>${penguinData.flipper_length_mm.toFixed(2)} mm</td>
+                <td>${penguinData.body_mass_g.toFixed(2)} g</td>
                 <td>${discoveryTime}</td>
                 <td>${predictionTime}</td>
             </tr>
@@ -58,10 +58,10 @@ async function fetchPreviousPredictions() {
             previousPredictionsTable += `
                 <tr>
                     <td>${prediction.species}</td>
-                    <td>${prediction.bill_length_mm.toFixed(2)}</td>
-                    <td>${prediction.bill_depth_mm.toFixed(2)}</td>
-                    <td>${prediction.flipper_length_mm.toFixed(2)}</td>
-                    <td>${prediction.body_mass_g.toFixed(2)}</td>
+                    <td>${prediction.bill_length_mm.toFixed(2)} mm</td>
+                    <td>${prediction.bill_depth_mm.toFixed(2)} mm</td>
+                    <td>${prediction.flipper_length_mm.toFixed(2)} mm</td>
+                    <td>${prediction.body_mass_g.toFixed(2)} g</td>
                     <td>${new Date(prediction.datetime).toLocaleString()}</td>
                     <td>${new Date(prediction.prediction_time).toLocaleString()}</td>
                 </tr>
