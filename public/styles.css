@@ -135,3 +135,25 @@ td:hover {
 #previous-predictions td:hover {
     background-color: #555;
 }
+
+.intel-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #ffd700;
+    margin-top: 40px;
+    text-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700;
+    background-color: #444;
+    padding: 10px;
+    border-radius: 10px;
+    animation: pulseTitle 2s infinite alternate;
+}
+
+@keyframes pulseTitle {
+    0% {
+        text-shadow: 0 0 5px #ffd700, 0 0 10px #ffd700;
+    }
+
+    100% {
+        text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+    }
+}
