@@ -6,122 +6,104 @@
     <title>Penguins of Madagascar Classifier</title>
     <style>
         body {
+            background-color: #dae4e5;
             font-family: Arial, sans-serif;
-            background-color: #E1E8EB;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
         .container {
-            max-width: 800px;
-            margin: 40px auto;
+            max-width: 900px;
+            margin: auto;
             padding: 20px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            color: #005D6E;
-            text-align: center;
-            font-size: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        h1 img {
-            margin-right: 10px;
-        }
-        .section {
-            margin-bottom: 20px;
-        }
-        .section-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-size: 20px;
-        }
-        .penguin-details div {
-            margin-bottom: 5px;
-            background: #F0F4F8;
-            padding: 10px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-        }
-        .prediction-bar {
-            margin: 10px 0;
-            background: #F0F4F8;
-            border-radius: 8px;
-            padding: 10px;
-            position: relative;
-            height: 30px;
-        }
-        .progress {
-            background-color: #F77F00;
-            height: 100%;
-            border-radius: 8px;
-            transition: width 0.5s;
+            background-color: #fefefe;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1.2s;
         }
         .date-time {
             display: flex;
             justify-content: space-between;
-            padding: 10px;
-            background-color: #F0F4F8;
-            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #a24124;
+            font-size: 2.5em;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .measurements, .prediction {
+            background-color: #adcbd1;
+            padding: 15px;
+            border-radius: 10px;
             margin-top: 10px;
+            font-size: 1.1em;
+            color: #262323;
+        }
+        .prediction {
+            text-align: center;
+            background-color: #e37e44;
+            color: white;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1><img src="https://cdn-icons-png.flaticon.com/512/1263/1263419.png" alt="Penguin Icon" width="30"> Penguins of Madagascar Classifier</h1>
-        
-        <div id="app"></div>
-    </div>
+    <div id="root"></div>
+    <script type="module">
+        import React from 'react';
+        import ReactDOM from 'react-dom/client';
 
-    <script>
-        async function fetchPenguinData() {
-            try {
-                const response = await fetch('latest_penguin.json');
-                const data = await response.json();
+        const App = () => {
+            const [data, setData] = React.useState(null);
 
-                // Separate Date and Time
-                const [date, time] = data.datetime.split('T');
-                const formattedTime = time.split('+')[0]; // Remove timezone info
-                
-                // Display data on the page
-                const app = document.getElementById('app');
-                
-                app.innerHTML = `
-                    <div class="section">
-                        <div class="section-title">Latest Penguin Spotted:</div>
-                        <div class="date-time">
-                            <div><strong>Date:</strong> ${date}</div>
-                            <div><strong>Time:</strong> ${formattedTime}</div>
-                        </div>
-                    </div>
+            React.useEffect(() => {
+                fetch('latest_penguin.json')
+                    .then(response => response.json())
+                    .then(data => setData(data))
+                    .catch(error => console.error('Error fetching data:', error));
+            }, []);
 
-                    <div class="section">
-                        <div class="section-title">Penguin Measurements:</div>
-                        <div class="penguin-details">
-                            <div><strong>Bill Length (mm):</strong> ${data.bill_length_mm.toFixed(2)}</div>
-                            <div><strong>Bill Depth (mm):</strong> ${data.bill_depth_mm.toFixed(2)}</div>
-                            <div><strong>Flipper Length (mm):</strong> ${data.flipper_length_mm.toFixed(2)}</div>
-                            <div><strong>Body Mass (g):</strong> ${data.body_mass_g.toFixed(0)}</div>
-                        </div>
-                    </div>
-
-                    <div class="section">
-                        <div class="section-title">Predicted Species:</div>
-                        <div class="prediction-bar">
-                            <div class="progress" style="width: 98%;">${data.species} (98%)</div>
-                        </div>
-                    </div>
-                `;
-            } catch (error) {
-                console.error('Error fetching data:', error);
+            if (!data) {
+                return <div>Loading...</div>;
             }
-        }
 
-        fetchPenguinData();
+            const [date, time] = data.datetime.split('T');
+            const formattedTime = time.split('+')[0];
+
+            return (
+                <div className="container">
+                    <h1>🐧 New Penguin Spotted!</h1>
+                    <div className="date-time">
+                        <div><strong>Date:</strong> {date}</div>
+                        <div><strong>Time:</strong> {formattedTime}</div>
+                    </div>
+
+                    <div className="section">
+                        <h2>Penguin Measurements</h2>
+                        <div className="measurements">
+                            <div>Bill Length: {data.bill_length_mm.toFixed(2)} mm</div>
+                            <div>Bill Depth: {data.bill_depth_mm.toFixed(2)} mm</div>
+                            <div>Flipper Length: {data.flipper_length_mm.toFixed(2)} mm</div>
+                            <div>Body Mass: {data.body_mass_g.toFixed(0)} g</div>
+                        </div>
+                    </div>
+
+                    <div className="section">
+                        <h2>Prediction</h2>
+                        <div className="prediction">{data.species}</div>
+                    </div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
