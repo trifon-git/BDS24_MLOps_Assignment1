@@ -6,36 +6,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Penguins of Madagascar Classifier</title>
     <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <header>
-            <h1>🧊 Penguins of Madagascar Classifier</h1>
-            <p class="subtitle">Latest Penguin Species Prediction</p>
-            <p id="timestamp" class="timestamp">Loading...</p>
-        </header>
+        <div class="header">
+            <h1>🐧 Penguins of Madagascar Classifier</h1>
+            <p>Latest Penguin Species Prediction</p>
+            <p id="timestamp" class="timestamp"></p>
+        </div>
 
-        <section class="prediction-section">
-            <div id="prediction" class="prediction-box">Loading...</div>
-        </section>
+        <div id="error-message" class="error-message"></div>
 
-        <section class="metrics-section">
-            <h2>📏 Penguin Measurements</h2>
-            <div class="metrics" id="metrics"></div>
-        </section>
+        <div id="prediction"></div>
 
-        <section class="probabilities-section">
-            <h2>📊 Prediction Probabilities</h2>
-            <div class="probability-bars" id="probability-bars"></div>
-        </section>
-
-        <section class="explanation-section">
-            <h2>🔍 Why This Prediction?</h2>
-            <div class="feature-importance" id="feature-importance"></div>
-        </section>
+        <div id="penguin-data"></div>
+        <div id="probabilities"></div>
     </div>
+
+    <script>
+        async function fetchPrediction() {
+            try {
+                const response = await fetch('latest_penguin.json');
+                const data = await response.json();
+
+                // Update Timestamp
+                document.getElementById('timestamp').innerText = `Last updated: ${data.datetime}`;
+
+                // Update Prediction
+                document.getElementById('prediction').innerHTML = `
+                    <div class="prediction-box">
+                        <div class="prediction-text">${data.predicted_species} Penguin Found!</div>
+                    </div>
+                `;
+
+                // Update Penguin Data
+                const penguinData = data.penguin_data;
+                const dataDiv = document.getElementById('penguin-data');
+                dataDiv.innerHTML = '<h2>Penguin Measurements 📏</h2>';
+
+                for (const key in penguinData) {
+                    if (penguinData.hasOwnProperty(key) && key !== 'datetime') {
+                        dataDiv.innerHTML += `<div class="data-item"><strong>${key.replaceAll('_', ' ')}:</strong> ${penguinData[key]}</div>`;
+                    }
+                }
+
+                // Update Prediction Probabilities
+                const probabilitiesDiv = document.getElementById('probabilities');
+                probabilitiesDiv.innerHTML = '<h2>Prediction Probabilities 📊</h2>';
+                for (const [species, probability] of Object.entries(data.probabilities)) {
+                    probabilitiesDiv.innerHTML += `
+                        <div class="prob-bar">
+                            <div class="prob-bar-text">${species}: ${(probability * 100).toFixed(2)}%</div>
+                            <div class="prob-bar-inner" style="width: ${probability * 100}%;"></div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                document.getElementById('error-message').innerText = 'Error loading prediction. Please check your JSON file.';
+            }
+        }
+
+        fetchPrediction();
+    </script>
 </body>
 
 </html>

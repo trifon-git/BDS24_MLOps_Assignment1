@@ -1,86 +1,80 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Montserrat', sans-serif;
     background-color: #dae4e5;
+    font-family: Arial, sans-serif;
 }
 
 .container {
     max-width: 800px;
-    margin: 20px auto;
+    margin: auto;
     padding: 20px;
     background: #fefefe;
     border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
 }
 
-header {
+.header h1 {
+    color: #a24124;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.header p {
+    text-align: center;
+    color: #53585a;
+}
+
+.timestamp {
     text-align: center;
     margin-bottom: 20px;
 }
 
-h1 {
-    font-size: 2em;
-    color: #a24124;
-}
-
-.subtitle,
-.timestamp {
-    font-size: 1.2em;
-    color: #53585a;
+.error-message {
+    color: #e37e44;
+    text-align: center;
+    margin-bottom: 20px;
 }
 
 .prediction-box {
-    text-align: center;
     padding: 15px;
-    margin: 20px auto;
-    background-color: #e37e44;
+    background-color: #a24124;
     color: white;
+    margin-bottom: 20px;
+    text-align: center;
     border-radius: 8px;
-    font-size: 1.5em;
-    transition: transform 0.3s ease-in-out;
 }
 
-.prediction-box:hover {
-    transform: scale(1.05);
+.data-item {
+    margin: 10px 0;
 }
 
-.metrics,
-.probability-bars,
-.feature-importance {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: center;
+.prob-bar {
+    margin: 10px 0;
+    background-color: #adbcbf;
+    border-radius: 4px;
+    overflow: hidden;
 }
 
-.metric,
-.probability-bar,
-.feature-bar {
-    background-color: #77868b;
-    padding: 10px;
-    margin: 5px;
-    border-radius: 5px;
-    color: #fefefe;
-}
-
-.bar {
+.prob-bar-inner {
     height: 20px;
-    background-color: #e37e44;
-    margin: 5px 0;
-    border-radius: 8px;
+    background-color: #77868b;
+    border-radius: 4px;
 }
 
-.animated-bar {
-    animation: grow 1s ease-in-out;
+.prob-bar-text {
+    margin-bottom: 4px;
 }
 
-@keyframes grow {
-    from {
-        width: 0;
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
     }
 
-    to {
-        width: 100%;
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
