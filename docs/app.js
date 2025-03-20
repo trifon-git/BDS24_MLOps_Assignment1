@@ -1,70 +1,45 @@
 async function fetchPrediction() {
     try {
-        const response = await fetch('latest_penguin.json');
+        const response = await fetch('https://trifon-git.github.io/BDS24_MLOps_Assignment1/latest_penguin.json');
         const data = await response.json();
-        displayPrediction(data);
-        displayMetrics(data.penguin_data);
-        displayProbabilities(data.probabilities);
-        displayFeatureImportance(data);
+
+        if (!data.species) {
+            throw new Error("Species data not found in JSON.");
+        }
+
+        // Update Timestamp
+        document.getElementById('timestamp').innerText = `Last updated: ${data.datetime}`;
+
+        // Display Prediction
+        document.getElementById('prediction').innerHTML = `
+            <div class="prediction-box">
+                <div class="prediction-text">${data.species} Penguin Spotted! 🐧</div>
+            </div>
+        `;
+
+        // Display Penguin Measurements
+        const penguinData = data;
+        const dataDiv = document.getElementById('penguin-data');
+        dataDiv.innerHTML = '<h2>Penguin Measurements 📏</h2>';
+
+        const keysToShow = ['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g'];
+
+        keysToShow.forEach(key => {
+            if (penguinData[key]) {
+                dataDiv.innerHTML += `
+                    <div class="data-item">
+                        <strong>${formatLabel(key)}:</strong> ${Number(penguinData[key]).toFixed(2)}
+                    </div>`;
+            }
+        });
     } catch (error) {
-        console.error("Error fetching data:", error);
-        document.getElementById("prediction").innerText = "Error loading prediction.";
+        console.error(error);
+        document.getElementById('error-message').innerText = 'Error loading prediction. Please check your JSON file.';
     }
 }
 
-function displayPrediction(data) {
-    const predictionBox = document.getElementById("prediction");
-    predictionBox.textContent = `${data.predicted_species} Penguin Found!`;
-    predictionBox.style.backgroundColor = data.predicted_species === "Adelie" ? "#a24124" : "#e37e44";
-
-    const timestampEl = document.getElementById("timestamp");
-    timestampEl.textContent = `Last updated: ${data.timestamp}`;
-}
-
-function displayMetrics(metrics) {
-    const metricsContainer = document.getElementById("metrics");
-    metricsContainer.innerHTML = '';
-
-    for (const [key, value] of Object.entries(metrics)) {
-        const metricDiv = document.createElement("div");
-        metricDiv.classList.add("metric");
-        metricDiv.innerHTML = `<strong>${formatLabel(key)}:</strong> ${value.toFixed(2)}`;
-        metricsContainer.appendChild(metricDiv);
-    }
-}
-
-function displayProbabilities(probabilities) {
-    const barsContainer = document.getElementById("probability-bars");
-    barsContainer.innerHTML = '';
-
-    for (const [species, probability] of Object.entries(probabilities)) {
-        const barWrapper = document.createElement("div");
-        barWrapper.classList.add("probability-bar");
-
-        const bar = document.createElement("div");
-        bar.classList.add("bar", "animated-bar");
-        bar.style.width = `${(probability * 100).toFixed(2)}%`;
-        bar.textContent = `${species}: ${(probability * 100).toFixed(2)}%`;
-
-        barWrapper.appendChild(bar);
-        barsContainer.appendChild(barWrapper);
-    }
-}
-
-function displayFeatureImportance(data) {
-    const importanceContainer = document.getElementById("feature-importance");
-    importanceContainer.innerHTML = '';
-
-    for (const [feature, importance] of Object.entries(data.feature_importance)) {
-        const featureDiv = document.createElement("div");
-        featureDiv.classList.add("feature-bar");
-        featureDiv.innerHTML = `<strong>${formatLabel(feature)}:</strong> ${Math.round(importance * 100)}%`;
-        importanceContainer.appendChild(featureDiv);
-    }
-}
-
-function formatLabel(label) {
-    return label.replace(/_/g, " ").replace(/\b\w/g, char => char.toUpperCase());
+function formatLabel(key) {
+    return key.split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 }
 
 fetchPrediction();
