@@ -5,31 +5,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Penguin Species Classifier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/framer-motion@latest"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
+            font-family: 'Inter', sans-serif;
+            background-color: #1A202C;
+            color: white;
+            margin: 0;
+            padding: 20px;
         }
 
         h1 {
-            color: #2E8B57;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #68D391;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #81E6D9;
         }
 
         pre {
-            background: #F0F0F0;
+            background: #2D3748;
             padding: 10px;
-            border-radius: 5px;
+            border-radius: 8px;
+            color: #E2E8F0;
+            white-space: pre-wrap;
+            font-size: 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 12px;
+            background: #2D3748;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 
 <body>
-    <h1>Latest Penguin Species Prediction</h1>
-    <p>Prediction:</p>
-    <pre id="prediction"></pre>
+    <div class="container">
+        <h1>Latest Penguin Species Prediction</h1>
+        <p class="text-lg mb-2">Prediction:</p>
+        <pre id="prediction"></pre>
 
-    <h2>Penguin Details</h2>
-    <div id="penguinInfo"></div>
+        <h2>Penguin Details</h2>
+        <div id="penguinInfo"></div>
+    </div>
 
     <script>
         async function fetchPrediction() {
@@ -40,11 +82,11 @@
 
                 document.getElementById("penguinInfo").innerHTML = `
                     <strong>Species:</strong> ${penguinData.species} <br>
-                    <strong>Bill Length (mm):</strong> ${penguinData.bill_length_mm} <br>
-                    <strong>Bill Depth (mm):</strong> ${penguinData.bill_depth_mm} <br>
-                    <strong>Flipper Length (mm):</strong> ${penguinData.flipper_length_mm} <br>
-                    <strong>Body Mass (g):</strong> ${penguinData.body_mass_g} <br>
-                    <strong>Date and Time:</strong> ${penguinData.datetime}
+                    <strong>Bill Length (mm):</strong> ${penguinData.bill_length_mm.toFixed(2)} <br>
+                    <strong>Bill Depth (mm):</strong> ${penguinData.bill_depth_mm.toFixed(2)} <br>
+                    <strong>Flipper Length (mm):</strong> ${penguinData.flipper_length_mm.toFixed(2)} <br>
+                    <strong>Body Mass (g):</strong> ${penguinData.body_mass_g.toFixed(2)} <br>
+                    <strong>Date and Time:</strong> ${new Date(penguinData.datetime).toLocaleString()}
                 `;
             } else {
                 document.getElementById("penguinInfo").textContent = "Penguin information not found.";
