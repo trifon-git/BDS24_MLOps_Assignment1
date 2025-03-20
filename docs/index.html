@@ -7,7 +7,7 @@
     <title>Penguin Species Classifier</title>
     <style>
         body {
-            background: linear-gradient(180deg, #0a0a0a, #222831, #3d3d3d);
+            background: linear-gradient(181deg, #0a0a0a, #222831, #3d3d3d);
             font-family: 'Verdana', sans-serif;
             margin: 0;
             padding: 0;
@@ -91,24 +91,49 @@
         }
 
         @keyframes slideIn {
-            0% { opacity: 0; transform: translateY(-60px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(-60px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes glow {
-            0% { text-shadow: 0 0 15px #ffcc80, 0 0 30px #ffa726; }
-            100% { text-shadow: 0 0 30px #ffcc80, 0 0 60px #ffa726; }
+            0% {
+                text-shadow: 0 0 15px #ffcc80, 0 0 30px #ffa726;
+            }
+
+            100% {
+                text-shadow: 0 0 30px #ffcc80, 0 0 60px #ffa726;
+            }
         }
 
         @keyframes glowText {
-            0% { text-shadow: 0 0 10px #ffffff, 0 0 20px #ffcc80; }
-            100% { text-shadow: 0 0 20px #ffffff, 0 0 40px #ffa726; }
+            0% {
+                text-shadow: 0 0 10px #ffffff, 0 0 20px #ffcc80;
+            }
+
+            100% {
+                text-shadow: 0 0 20px #ffffff, 0 0 40px #ffa726;
+            }
         }
 
         @keyframes penguinDance {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-25px); }
-            100% { transform: translateY(0); }
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-25px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
         }
 
         .penguin {
@@ -163,12 +188,12 @@
             penguin.style.top = `${Math.random() * 80}vh`;
             penguin.style.width = "100px";
             penguin.style.height = "100px";
-            
+
             document.body.appendChild(penguin);
 
             setTimeout(() => {
                 penguin.remove();
-            }, 5000); 
+            }, 5000);
         }
     </script>
 </body>
