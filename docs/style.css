@@ -1,80 +1,63 @@
 body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #dae4e5;
     margin: 0;
     padding: 0;
-    background-color: #dae4e5;
-    font-family: Arial, sans-serif;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 700px;
     margin: auto;
     padding: 20px;
-    background: #fefefe;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 1s ease-in-out;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    padding-bottom: 30px;
 }
 
-.header h1 {
+h1 {
+    text-align: center;
     color: #a24124;
-    text-align: center;
-    margin-bottom: 0;
 }
 
-.header p {
+.prediction-box {
     text-align: center;
-    color: #53585a;
+    padding: 10px;
+    background-color: #e37e44;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    color: white;
+    font-weight: bold;
 }
 
 .timestamp {
     text-align: center;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    color: #77868b;
 }
 
-.error-message {
-    color: #e37e44;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.prediction-box {
-    padding: 15px;
-    background-color: #a24124;
-    color: white;
-    margin-bottom: 20px;
-    text-align: center;
-    border-radius: 8px;
+h2 {
+    color: #a24124;
+    border-bottom: 2px solid #53585a;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .data-item {
-    margin: 10px 0;
-}
-
-.prob-bar {
-    margin: 10px 0;
     background-color: #adbcbf;
-    border-radius: 4px;
-    overflow: hidden;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #262323;
 }
 
-.prob-bar-inner {
-    height: 20px;
-    background-color: #77868b;
-    border-radius: 4px;
-}
-
-.prob-bar-text {
-    margin-bottom: 4px;
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.error-message {
+    background-color: #e37e44;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
 }
