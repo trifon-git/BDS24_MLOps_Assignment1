@@ -1,0 +1,21 @@
+Feature Importance Scores (RandomForestClassifier):
+bill_length_mm: 0.13410604205334922
+bill_depth_mm: 0.08511481260460986
+flipper_length_mm: 0.21220751920140987
+body_mass_g: 0.03374571177191088
+bill_ratio: 0.3486392557419706
+flipper_to_mass_ratio: 0.009944270560818334
+bill_area: 0.03949383347781515
+size_index: 0.10291948402658516
+mass_flipper_diff: 0.033829070561531026
+
+Feature Scores (SelectKBest):
+bill_length_mm: 397.29943741285973
+bill_depth_mm: 344.82508194374344
+flipper_length_mm: 567.4069920123715
+body_mass_g: 341.8948949481405
+bill_ratio: 1451.6782996078107
+flipper_to_mass_ratio: 140.92940421269853
+bill_area: 123.07589039258185
+size_index: 462.9852436725329
+mass_flipper_diff: 335.05438183563416

@@ -1,0 +1,14 @@
+Penguin-Species-Classifier/
+├── README.md
+├── database/
+│   └── penguins.db
+├── model/
+│   └── model.pkl
+├── scripts/
+│   ├── create_database.py
+│   ├── train_model.py
+│   └── predict_penguin.py
+├── .github/
+│   └── workflows/
+│       └── fetch_and_predict.yml
+├── requirements.txt

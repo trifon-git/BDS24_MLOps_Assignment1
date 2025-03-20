@@ -1,0 +1,36 @@
+name: Fetch and Predict Penguin
+
+on:
+  schedule:
+    - cron: "30 7 * * *" # Runs every day at 7:30 AM UTC
+
+jobs:
+  predict:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run prediction
+        run: python scripts/predict_penguin.py
+
+      - name: Upload Prediction to GitHub Pages
+        run: |
+          echo "Penguin Species Prediction" > index.md
+          cat prediction.txt >> index.md
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./

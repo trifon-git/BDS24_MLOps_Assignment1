@@ -1,0 +1,14 @@
+Cross-Validation Accuracy: 98.16%
+
+Model Accuracy on Test Set: 95.12%
+
+Classification Report on Test Set:
+              precision    recall  f1-score   support
+
+      Adelie       0.85      1.00      0.92        11
+   Chinstrap       1.00      0.88      0.94        17
+      Gentoo       1.00      1.00      1.00        13
+
+    accuracy                           0.95        41
+   macro avg       0.95      0.96      0.95        41
+weighted avg       0.96      0.95      0.95        41
