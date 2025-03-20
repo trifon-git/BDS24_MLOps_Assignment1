@@ -4,23 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penguin Prediction</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Penguin Species Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        h1 {
+            color: #2E8B57;
+        }
+
+        pre {
+            background: #F0F0F0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>🐧 Penguins of Madagascar Classifier</h1>
-        <p class="timestamp" id="timestamp">Last updated: </p>
+    <h1>Latest Penguin Species Prediction</h1>
+    <p>Prediction:</p>
+    <pre id="prediction"></pre>
 
-        <div id="prediction" class="prediction-box">Loading...</div>
+    <h2>Penguin Details</h2>
+    <div id="penguinInfo"></div>
 
-        <div id="penguin-data"></div>
+    <script>
+        async function fetchPrediction() {
+            const response = await fetch("latest_penguin.json");
+            if (response.ok) {
+                const penguinData = await response.json();
+                document.getElementById("prediction").textContent = penguinData.species;
 
-        <div class="error-message" id="error-message"></div>
-    </div>
-    <script src="script.js"></script>
+                document.getElementById("penguinInfo").innerHTML = `
+                    <strong>Species:</strong> ${penguinData.species} <br>
+                    <strong>Bill Length (mm):</strong> ${penguinData.bill_length_mm} <br>
+                    <strong>Bill Depth (mm):</strong> ${penguinData.bill_depth_mm} <br>
+                    <strong>Flipper Length (mm):</strong> ${penguinData.flipper_length_mm} <br>
+                    <strong>Body Mass (g):</strong> ${penguinData.body_mass_g} <br>
+                    <strong>Date and Time:</strong> ${penguinData.datetime}
+                `;
+            } else {
+                document.getElementById("penguinInfo").textContent = "Penguin information not found.";
+            }
+        }
+
+        fetchPrediction();
+    </script>
 </body>
 
 </html>
