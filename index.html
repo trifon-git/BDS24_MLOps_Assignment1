@@ -25,17 +25,29 @@
 
 <body>
     <h1>Latest Penguin Species Prediction</h1>
-    <p>Below is the latest prediction made by the model:</p>
+    <p>Prediction:</p>
     <pre id="prediction"></pre>
+
+    <h2>Penguin Details</h2>
+    <div id="penguinInfo"></div>
 
     <script>
         async function fetchPrediction() {
-            const response = await fetch("prediction.txt");
+            const response = await fetch("latest_penguin.json");
             if (response.ok) {
-                const text = await response.text();
-                document.getElementById("prediction").textContent = text;
+                const penguinData = await response.json();
+                document.getElementById("prediction").textContent = penguinData.species;
+
+                document.getElementById("penguinInfo").innerHTML = `
+                    <strong>Species:</strong> ${penguinData.species} <br>
+                    <strong>Bill Length (mm):</strong> ${penguinData.bill_length_mm} <br>
+                    <strong>Bill Depth (mm):</strong> ${penguinData.bill_depth_mm} <br>
+                    <strong>Flipper Length (mm):</strong> ${penguinData.flipper_length_mm} <br>
+                    <strong>Body Mass (g):</strong> ${penguinData.body_mass_g} <br>
+                    <strong>Date and Time:</strong> ${penguinData.datetime}
+                `;
             } else {
-                document.getElementById("prediction").textContent = "Prediction file not found.";
+                document.getElementById("penguinInfo").textContent = "Penguin information not found.";
             }
         }
 
