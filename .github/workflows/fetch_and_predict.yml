@@ -1,16 +1,16 @@
 name: Fetch and Predict Penguin
 
-# Trigger the workflow every day at 7:30 AM UTC
 on:
   schedule:
     - cron: '30 7 * * *'  # This is 7:30 AM UTC, adjust for your timezone if necessary
-
-  # Allow manual triggering of the workflow
   workflow_dispatch:
 
 jobs:
   fetch_and_predict:
     runs-on: ubuntu-latest
+
+    permissions: 
+      contents: write  # Allows pushing changes to the repository
 
     steps:
     - name: Checkout repository
@@ -19,7 +19,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.12  # Use your Python version
+        python-version: 3.12
 
     - name: Install dependencies
       run: |
