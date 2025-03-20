@@ -4,51 +4,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penguin Species Classifier</title>
+    <title>Latest Penguin Species Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 40px;
         }
 
-        h1 {
-            color: #2E8B57;
+        .fade-in {
+            animation: fadeIn 2s ease-in;
         }
 
-        pre {
-            background: #F0F0F0;
-            padding: 10px;
-            border-radius: 5px;
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
         }
     </style>
 </head>
 
-<body>
-    <h1>Latest Penguin Species Prediction</h1>
-    <p>Prediction:</p>
-    <pre id="prediction"></pre>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-8 fade-in">
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h1 class="text-3xl font-bold text-green-600 mb-4">🐧 Latest Penguin Species Prediction</h1>
 
-    <h2>Penguin Details</h2>
-    <div id="penguinInfo"></div>
+            <div id="prediction" class="mb-4">
+                <h2 class="text-xl font-semibold mb-2">Prediction:</h2>
+                <div class="bg-gray-200 p-4 rounded">
+                    <span id="species" class="text-lg font-bold"></span>
+                </div>
+            </div>
+
+            <div id="details" class="mt-6">
+                <h2 class="text-2xl font-bold mb-2">Penguin Details</h2>
+                <div id="penguin-details" class="text-gray-700"></div>
+            </div>
+        </div>
+    </div>
 
     <script>
         async function fetchPrediction() {
-            const response = await fetch("latest_penguin.json");
-            if (response.ok) {
-                const penguinData = await response.json();
-                document.getElementById("prediction").textContent = penguinData.species;
+            const response = await fetch('latest_penguin.json');
+            const data = await response.json();
 
-                document.getElementById("penguinInfo").innerHTML = `
-                    <strong>Species:</strong> ${penguinData.species} <br>
-                    <strong>Bill Length (mm):</strong> ${penguinData.bill_length_mm} <br>
-                    <strong>Bill Depth (mm):</strong> ${penguinData.bill_depth_mm} <br>
-                    <strong>Flipper Length (mm):</strong> ${penguinData.flipper_length_mm} <br>
-                    <strong>Body Mass (g):</strong> ${penguinData.body_mass_g} <br>
-                    <strong>Date and Time:</strong> ${penguinData.datetime}
-                `;
-            } else {
-                document.getElementById("penguinInfo").textContent = "Penguin information not found.";
-            }
+            document.getElementById('species').innerText = data.species;
+
+            const details = `
+                <p><strong>Species:</strong> ${data.species}</p>
+                <p><strong>Bill Length (mm):</strong> ${data.bill_length_mm}</p>
+                <p><strong>Bill Depth (mm):</strong> ${data.bill_depth_mm}</p>
+                <p><strong>Flipper Length (mm):</strong> ${data.flipper_length_mm}</p>
+                <p><strong>Body Mass (g):</strong> ${data.body_mass_g}</p>
+                <p><strong>Date and Time:</strong> ${data.datetime}</p>
+            `;
+
+            document.getElementById('penguin-details').innerHTML = details;
         }
 
         fetchPrediction();
