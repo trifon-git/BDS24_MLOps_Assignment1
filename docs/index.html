@@ -1,109 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Penguins of Madagascar Classifier</title>
-    <style>
-        body {
-            background-color: #dae4e5;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-            background-color: #fefefe;
-            border-radius: 20px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            animation: fadeIn 1.2s;
-        }
-        .date-time {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #a24124;
-            font-size: 2.5em;
-        }
-        .section {
-            margin-bottom: 30px;
-        }
-        .measurements, .prediction {
-            background-color: #adcbd1;
-            padding: 15px;
-            border-radius: 10px;
-            margin-top: 10px;
-            font-size: 1.1em;
-            color: #262323;
-        }
-        .prediction {
-            text-align: center;
-            background-color: #e37e44;
-            color: white;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
+
 <body>
-    <div id="root"></div>
-    <script type="module">
-        import React from 'react';
-        import ReactDOM from 'react-dom/client';
+    <div class="container">
+        <header>
+            <h1>🧊 Penguins of Madagascar Classifier</h1>
+            <p class="subtitle">Latest Penguin Species Prediction</p>
+            <p id="timestamp" class="timestamp">Loading...</p>
+        </header>
 
-        const App = () => {
-            const [data, setData] = React.useState(null);
+        <section class="prediction-section">
+            <div id="prediction" class="prediction-box">Loading...</div>
+        </section>
 
-            React.useEffect(() => {
-                fetch('latest_penguin.json')
-                    .then(response => response.json())
-                    .then(data => setData(data))
-                    .catch(error => console.error('Error fetching data:', error));
-            }, []);
+        <section class="metrics-section">
+            <h2>📏 Penguin Measurements</h2>
+            <div class="metrics" id="metrics"></div>
+        </section>
 
-            if (!data) {
-                return <div>Loading...</div>;
-            }
+        <section class="probabilities-section">
+            <h2>📊 Prediction Probabilities</h2>
+            <div class="probability-bars" id="probability-bars"></div>
+        </section>
 
-            const [date, time] = data.datetime.split('T');
-            const formattedTime = time.split('+')[0];
-
-            return (
-                <div className="container">
-                    <h1>🐧 New Penguin Spotted!</h1>
-                    <div className="date-time">
-                        <div><strong>Date:</strong> {date}</div>
-                        <div><strong>Time:</strong> {formattedTime}</div>
-                    </div>
-
-                    <div className="section">
-                        <h2>Penguin Measurements</h2>
-                        <div className="measurements">
-                            <div>Bill Length: {data.bill_length_mm.toFixed(2)} mm</div>
-                            <div>Bill Depth: {data.bill_depth_mm.toFixed(2)} mm</div>
-                            <div>Flipper Length: {data.flipper_length_mm.toFixed(2)} mm</div>
-                            <div>Body Mass: {data.body_mass_g.toFixed(0)} g</div>
-                        </div>
-                    </div>
-
-                    <div className="section">
-                        <h2>Prediction</h2>
-                        <div className="prediction">{data.species}</div>
-                    </div>
-                </div>
-            );
-        };
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
+        <section class="explanation-section">
+            <h2>🔍 Why This Prediction?</h2>
+            <div class="feature-importance" id="feature-importance"></div>
+        </section>
+    </div>
 </body>
+
 </html>

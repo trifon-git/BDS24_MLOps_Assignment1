@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #dae4e5;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fefefe;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 2em;
+    color: #a24124;
+}
+
+.subtitle,
+.timestamp {
+    font-size: 1.2em;
+    color: #53585a;
+}
+
+.prediction-box {
+    text-align: center;
+    padding: 15px;
+    margin: 20px auto;
+    background-color: #e37e44;
+    color: white;
+    border-radius: 8px;
+    font-size: 1.5em;
+    transition: transform 0.3s ease-in-out;
+}
+
+.prediction-box:hover {
+    transform: scale(1.05);
+}
+
+.metrics,
+.probability-bars,
+.feature-importance {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.metric,
+.probability-bar,
+.feature-bar {
+    background-color: #77868b;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 5px;
+    color: #fefefe;
+}
+
+.bar {
+    height: 20px;
+    background-color: #e37e44;
+    margin: 5px 0;
+    border-radius: 8px;
+}
+
+.animated-bar {
+    animation: grow 1s ease-in-out;
+}
+
+@keyframes grow {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 100%;
+    }
+}
