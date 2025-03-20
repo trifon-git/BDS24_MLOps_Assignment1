@@ -1,0 +1,113 @@
+body {
+    background: linear-gradient(45deg, #1c1c1c, #333);
+    font-family: 'Verdana', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #f0f0f0;
+    overflow-x: hidden;
+}
+
+h1 {
+    font-size: 5vw;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    background: url('https://www.transparenttextures.com/patterns/camo.png');
+    background-size: cover;
+    background-color: khaki;
+    border-bottom: 5px solid #ffd700;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    animation: pulse 2s infinite alternate;
+    color: #333;
+    text-shadow: 0px 0px 5px #ffd700;
+}
+
+h2 {
+    font-size: 4vw;
+    color: #ffd700;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.intro-text {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #ffd700;
+}
+
+#container {
+    background: #2b2b2b;
+    padding: 40px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 50px auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    animation: slideIn 1s ease-out;
+}
+
+#prediction {
+    background-color: #ffd700;
+    color: #1c1c1c;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    animation: glowingPrediction 2s infinite alternate;
+    box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+    transition: transform 0.3s;
+}
+
+#prediction:hover {
+    transform: scale(1.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    padding: 15px;
+    text-align: center;
+    border: 2px solid #ffd700;
+    background-color: #444;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+th {
+    background-color: #ffd700;
+    color: #333;
+}
+
+td:hover {
+    background-color: #555;
+}
+
+@keyframes pulse {
+    0% {
+        text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+    }
+
+    100% {
+        text-shadow: 0 0 20px #ffd700, 0 0 40px #ffd700;
+    }
+}
+
+@keyframes glowingPrediction {
+    0% {
+        box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+    }
+
+    100% {
+        box-shadow: 0 0 20px #ffd700, 0 0 40px #ffd700;
+    }
+}
