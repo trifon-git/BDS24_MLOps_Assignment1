@@ -7,8 +7,8 @@
     <title>Penguin Species Classifier</title>
     <style>
         body {
-            background: linear-gradient(180deg, #0a0a0a, #222831, #3d3d3d);
-            font-family: 'Verdana', sans-serif;
+            background: linear-gradient(135deg, #262323, #77868b);
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             color: #fefefe;
@@ -16,57 +16,45 @@
         }
 
         h1 {
-            font-size: 7rem;
+            font-size: 6.5rem;
             text-align: center;
-            color: #ffa726;
-            animation: glow 3s infinite alternate;
-            margin-top: 30px;
-            cursor: pointer;
+            color: #e37e44;
+            animation: glow 2s infinite alternate;
+            margin-top: 20px;
         }
 
         h2 {
-            font-size: 5.5rem;
+            font-size: 5rem;
             text-align: center;
-            color: #ffcc80;
-            margin-top: 30px;
-            cursor: pointer;
+            color: #a24124;
+            margin-top: 20px;
         }
 
         #container {
-            background: linear-gradient(135deg, #1e272e, #485460);
-            padding: 40px;
-            border-radius: 20px;
-            width: 90%;
-            height: 90vh;
-            margin: 30px auto;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+            background: #dae4e5;
+            padding: 30px;
+            border-radius: 15px;
+            width: 80%;
+            margin: 40px auto;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
             animation: slideIn 1s ease;
-            position: relative;
-            overflow: hidden;
         }
 
         .info-box {
-            background: #393e46;
-            padding: 30px;
-            border-radius: 12px;
-            border: 3px solid #ffa726;
-            margin: 15px;
+            background: #adbcbf;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #a24124;
+            margin: 10px;
             flex-basis: 45%;
             animation: bounceIn 1s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.4s;
-            cursor: pointer;
-        }
-
-        .info-box:hover {
-            transform: scale(1.05);
-            background: #4e5157;
         }
 
         .info-box p {
-            font-size: 1.7rem;
+            font-size: 1.5rem;
             margin: 0;
             text-align: center;
         }
@@ -75,63 +63,73 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-around;
-            margin-top: 20px;
         }
 
         #prediction {
-            background: #4b4b4b;
-            color: #fff;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 30px;
+            background: #53585a;
+            color: #fefefe;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
             text-align: center;
             animation: glowText 2s infinite alternate;
-            cursor: pointer;
-            font-size: 1.8rem;
         }
 
         @keyframes slideIn {
-            0% { opacity: 0; transform: translateY(-60px); }
-            100% { opacity: 1; transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes glow {
-            0% { text-shadow: 0 0 15px #ffcc80, 0 0 30px #ffa726; }
-            100% { text-shadow: 0 0 30px #ffcc80, 0 0 60px #ffa726; }
+            from {
+                text-shadow: 0 0 10px #e37e44, 0 0 20px #a24124;
+            }
+            to {
+                text-shadow: 0 0 20px #e37e44, 0 0 40px #a24124;
+            }
         }
 
         @keyframes glowText {
-            0% { text-shadow: 0 0 10px #ffffff, 0 0 20px #ffcc80; }
-            100% { text-shadow: 0 0 20px #ffffff, 0 0 40px #ffa726; }
+            0% {
+                text-shadow: 0 0 10px #fefefe, 0 0 20px #adbcbf;
+            }
+            100% {
+                text-shadow: 0 0 20px #fefefe, 0 0 40px #adbcbf;
+            }
         }
 
-        @keyframes penguinDance {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-25px); }
-            100% { transform: translateY(0); }
-        }
-
-        .penguin {
-            position: absolute;
-            animation: penguinDance 2s infinite;
-            cursor: pointer;
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.8);
+            }
+            60% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
         }
     </style>
 </head>
 
 <body>
-    <h1 onclick="triggerEasterEgg()">🐧 The Great Penguin Predictor! 🌟</h1>
+    <h1>Welcome to The Great Penguin Predictor! 🐧</h1>
     <div id="container">
-        <h2>🧐 Ready to Unveil the Mystery?</h2>
-        <p>You've found the right iceberg! Let the mighty Penguin Predictor do its magic! ✨</p>
+        <h2>🧐 Ever wondered what fabulous penguin species you're gazing at?</h2>
+        <p>Well, you've landed at the right iceberg! Dive into the magic of AI and let the mighty Penguin Predictor reveal the truth! ✨</p>
 
-        <div id="prediction" onclick="triggerEasterEgg()">Loading prediction...</div>
+        <div id="prediction">Loading prediction...</div>
 
         <h2>📊 Penguin Stats Galore</h2>
         <div class="info-grid" id="penguinInfo"></div>
     </div>
-
-    <div id="penguinDanceArea"></div>
 
     <script>
         async function fetchPrediction() {
@@ -154,22 +152,6 @@
         }
 
         fetchPrediction();
-
-        function triggerEasterEgg() {
-            const penguin = document.createElement("img");
-            penguin.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Emperor_Penguin_Manchot_empereur.jpg/200px-Emperor_Penguin_Manchot_empereur.jpg";
-            penguin.className = "penguin";
-            penguin.style.left = `${Math.random() * 80}vw`;
-            penguin.style.top = `${Math.random() * 80}vh`;
-            penguin.style.width = "100px";
-            penguin.style.height = "100px";
-            
-            document.body.appendChild(penguin);
-
-            setTimeout(() => {
-                penguin.remove();
-            }, 5000); 
-        }
     </script>
 </body>
 
