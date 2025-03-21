@@ -50,11 +50,12 @@ h2 {
     position: relative;
 }
 
+/* Prediction Box Styling */
 #prediction {
     padding: 20px;
     border-radius: 15px;
     text-align: center;
-    font-size: 2rem;
+    font-size: 2.2rem;
     margin-bottom: 30px;
     animation: glowingPrediction 2s infinite alternate;
     transition: transform 0.3s, background-color 0.3s;
@@ -63,6 +64,20 @@ h2 {
 
 #prediction:hover {
     transform: scale(1.08);
+}
+
+/* Successful Prediction Styling */
+.prediction-success {
+    background-color: #FF4500;
+    /* Bright Orange Red */
+    color: white;
+}
+
+/* Unsuccessful Prediction Styling */
+.prediction-fail {
+    background-color: #8B0000;
+    /* Dark Red */
+    color: white;
 }
 
 @keyframes glowingPrediction {
@@ -75,11 +90,13 @@ h2 {
     }
 }
 
-
+/* Table Styling */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    table-layout: fixed;
+    /* Makes columns equal width */
 }
 
 th,
@@ -92,6 +109,8 @@ td {
     font-size: 1.1rem;
     cursor: pointer;
     transition: background 0.3s;
+    width: 14.28%;
+    /* Ensures all columns have equal width */
 }
 
 th {
@@ -103,6 +122,7 @@ td:hover {
     background-color: #555;
 }
 
+/* Previous Predictions Table */
 #previous-predictions table {
     width: 100%;
     border-collapse: collapse;
@@ -116,6 +136,7 @@ td:hover {
     border: 2px solid #ffd700;
     background-color: #444;
     color: white;
+    width: 14.28%;
 }
 
 #previous-predictions th {
@@ -127,6 +148,7 @@ td:hover {
     background-color: #555;
 }
 
+/* Title Styling */
 .intel-title {
     text-align: center;
     font-size: 2.5rem;
@@ -146,5 +168,24 @@ td:hover {
 
     100% {
         text-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700;
+    }
+}
+
+/* Penguin Rain Styling */
+.penguin {
+    position: fixed;
+    font-size: 20px;
+    top: -5%;
+    animation: fall 5s linear infinite;
+    z-index: 1000;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(100vh);
     }
 }
