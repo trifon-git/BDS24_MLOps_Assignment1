@@ -51,24 +51,30 @@ h2 {
 }
 
 #prediction {
-    background-color: #FF4500;
-    /* Bright Orange Red */
-    color: white;
     padding: 20px;
     border-radius: 15px;
     text-align: center;
     font-size: 2rem;
     margin-bottom: 30px;
     animation: glowingPrediction 2s infinite alternate;
-    box-shadow: 0 0 20px #FF4500, 0 0 40px #FF4500;
     transition: transform 0.3s, background-color 0.3s;
+    box-shadow: 0 0 20px #FF4500, 0 0 40px #FF4500;
 }
 
 #prediction:hover {
     transform: scale(1.08);
-    background-color: #FF6347;
-    /* Slightly brighter shade */
 }
+
+@keyframes glowingPrediction {
+    0% {
+        box-shadow: 0 0 10px #FF4500, 0 0 20px #FF4500;
+    }
+
+    100% {
+        box-shadow: 0 0 30px #FF4500, 0 0 60px #FF4500;
+    }
+}
+
 
 table {
     width: 100%;
@@ -95,17 +101,6 @@ th {
 
 td:hover {
     background-color: #555;
-}
-
-/* Glowing Effect */
-@keyframes glowingPrediction {
-    0% {
-        box-shadow: 0 0 10px #FF4500, 0 0 20px #FF4500;
-    }
-
-    100% {
-        box-shadow: 0 0 30px #FF4500, 0 0 60px #FF4500;
-    }
 }
 
 #previous-predictions table {

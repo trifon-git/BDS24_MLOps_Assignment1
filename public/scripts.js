@@ -5,8 +5,20 @@ async function fetchPrediction() {
         const predictionTime = new Date(penguinData.prediction_time).toLocaleString();
         const discoveryTime = new Date(penguinData.datetime).toLocaleString();
 
-        document.getElementById("prediction").textContent =
-            `🔥 Mission Success! Penguin Species Identified: ${penguinData.species} 🐧`;
+        const predictionElement = document.getElementById("prediction");
+        let message = '';
+
+        if (penguinData.species === "Adelie") {
+            message = `✅ 🔥 Mission Success! Species Identified: ${penguinData.species} 🐧`;
+            predictionElement.style.backgroundColor = "#FF4500";  // Bright Orange Red
+            predictionElement.style.color = "white";
+        } else {
+            message = `❌ Mission Unsuccessful! Target not identified as Adelie. 😔`;
+            predictionElement.style.backgroundColor = "#8B0000";  // Dark Red for failure
+            predictionElement.style.color = "white";
+        }
+
+        predictionElement.textContent = message;
 
         const dataTable = document.createElement('table');
         dataTable.innerHTML = `
@@ -34,6 +46,7 @@ async function fetchPrediction() {
         document.getElementById("prediction").textContent = "❌ Mission Failed! Penguins are undercover!";
     }
 }
+
 
 async function fetchPreviousPredictions() {
     const response = await fetch("predictions.json");
