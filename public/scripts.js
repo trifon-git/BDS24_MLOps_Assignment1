@@ -13,7 +13,7 @@ async function fetchPrediction() {
             predictionElement.style.backgroundColor = "#FF4500";  // Bright Orange Red
             predictionElement.style.color = "white";
         } else {
-            message = `❌ Mission Unsuccessful! Target not identified as Adelie. 😔`;
+            message = `❌ Mission Unsuccessful! Target Identified: ${penguinData.species}. 😔`;
             predictionElement.style.backgroundColor = "#8B0000";  // Dark Red for failure
             predictionElement.style.color = "white";
         }
