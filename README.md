@@ -2,6 +2,8 @@
 
 ## 📖 Project Overview  
 The **Penguins of Madagascar Classifier** is a machine learning project designed to classify penguin species from the famous Penguins of Madagascar series. This classifier is deployed as a fun, interactive webpage that displays the latest penguin detection with fancy animations, modern design, and playful visuals.  
+---
+# 👉 [Visit the Penguins of Madagascar Classifier App Here! 🌐](https://bds-24-ml-ops-assignment1.vercel.app/)
 
 ---
 
