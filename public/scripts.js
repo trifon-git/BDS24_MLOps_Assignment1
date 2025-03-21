@@ -10,10 +10,10 @@ async function fetchPrediction() {
             let message = '';
 
             if (penguinData.species === "Adelie") {
-                message = `✅ 🔥 Mission Success! Species Identified: ${penguinData.species} 🐧`;
+                message = `✅ 🔥 Mission Success! Today's Penguin Identified as: ${penguinData.species} 🐧`;
                 predictionElement.className = "prediction-success";
             } else {
-                message = `❌ Mission Unsuccessful! Target Identified as: ${penguinData.species}. 😔`;
+                message = `❌ Mission Unsuccessful! Today's Penguin Identified as: ${penguinData.species}. 😔`;
                 predictionElement.className = "prediction-fail";
             }
 
