@@ -1,10 +1,10 @@
 {
     "species": "Chinstrap",
-    "confidence": 100.0,
-    "bill_length_mm": 51.27,
-    "bill_depth_mm": 19.07,
-    "flipper_length_mm": 194.89,
-    "body_mass_g": 3355.19,
-    "datetime": "2025-03-21T07:59:00+00:00",
-    "prediction_time": "2025-03-21T07:37:02+0000"
+    "confidence": 88.0,
+    "bill_length_mm": 49.33,
+    "bill_depth_mm": 14.06,
+    "flipper_length_mm": 191.72,
+    "body_mass_g": 3810.51,
+    "datetime": "2025-03-22T07:59:00+00:00",
+    "prediction_time": "2025-03-22T07:36:33+0000"
 }
