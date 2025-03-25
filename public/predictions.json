@@ -47,5 +47,15 @@
         "body_mass_g": 3864.41,
         "datetime": "2025-03-24T07:59:00+00:00",
         "prediction_time": "2025-03-24T07:38:21+0000"
+    },
+    {
+        "species": "Chinstrap",
+        "confidence": 62.0,
+        "bill_length_mm": 43.98,
+        "bill_depth_mm": 17.67,
+        "flipper_length_mm": 216.0,
+        "body_mass_g": 3752.54,
+        "datetime": "2025-03-25T07:59:00+00:00",
+        "prediction_time": "2025-03-25T07:37:58+0000"
     }
 ]
