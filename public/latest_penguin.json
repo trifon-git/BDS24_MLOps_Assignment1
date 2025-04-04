@@ -1,10 +1,10 @@
 {
-    "species": "Chinstrap",
-    "confidence": 84.0,
-    "bill_length_mm": 53.32,
-    "bill_depth_mm": 21.46,
-    "flipper_length_mm": 201.33,
-    "body_mass_g": 4910.94,
-    "datetime": "2025-04-03T07:59:00+00:00",
-    "prediction_time": "2025-04-03T07:37:48+0000"
+    "species": "Adelie",
+    "confidence": 86.0,
+    "bill_length_mm": 31.97,
+    "bill_depth_mm": 19.53,
+    "flipper_length_mm": 197.33,
+    "body_mass_g": 4712.71,
+    "datetime": "2025-04-04T07:59:00+00:00",
+    "prediction_time": "2025-04-04T07:37:31+0000"
 }
